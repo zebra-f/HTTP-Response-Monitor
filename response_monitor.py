@@ -1,16 +1,24 @@
 import smtplib
 from email.message import EmailMessage
+import requests
+from config import password_1, email_1
      
+
+def status_code(url):
+    r = requests.get(url, timeout=8)
+    return r.ok
+
 
 def email_notification(email_subject, email_content):
     """
     two arguments:
-    type of email_subject - string
-    type of email_content - string
+    type(email_subject)- string
+    type(email_content)- string
     """
     
-    to_email = 'placeholder'
-    from_email = 'placeholder'
+
+    to_email = email_1
+    from_email = email_1
 
     msg = EmailMessage()
     msg['Subject'] = email_subject
@@ -25,7 +33,7 @@ def email_notification(email_subject, email_content):
         smtp.ehlo()
         
         # use environment variables or configuration file to store your e-mail and password
-        smtp.login("placeholder", "placeholder")
+        smtp.login(email_1, password_1)
         
         smtp.send_message(msg)
 
@@ -33,6 +41,6 @@ def email_notification(email_subject, email_content):
 
 # testing
 print('sending')
-email_notification('py test email subject', 'py test email content')
+email_notification('py test 2 email subject', 'py test email content ddsds')
 print('sent')
 # working emailing function
